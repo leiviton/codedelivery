@@ -59,7 +59,7 @@ angular.module('starter.controllers')
                                 lat: lat,
                                 long: long,
                                 service: o.service,
-                                auxiliary: null
+                                auxiliary: ax
                             },function (data) {
                                 $scope.order = data;
                                 console.log(data);

@@ -31,13 +31,12 @@
                </label>
                    <button class="button button-energized aux" ng-click="openListAuxiliares()" ng-if="auxiliary !=null && auxiliary !=''"" id="aux" ><i class="ion-android-add"></i></button>
 
-               <label class="label"  ng-if="auxiliary==null">Sua equipe:
-                   <h2>Sem auxiliares</h2>
-               </label>
-                   <button class="button button-energized aux" ng-click="openListAuxiliares()"  ng-if="auxiliary == null"><i class="ion-android-add"></i></button>
-
+               <h2 class="equipe1"  ng-if="auxiliary==null">Sua equipe:
+                   <h2 class="equipe">{{user.name}}</h2>
+               </h2>
+                   <button class="button button-clear aux" ng-click="openListAuxiliares()"  ng-if="auxiliary == null"><i class="ion-android-add icone"></i></button>
            </ion-item>
-            <form name="formClose">
+            <form name="formClose" class="formClose">
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Serviço Executado:</span>
                     <input type="text" placeholder="Descreva o serviço" ng-model="order.service" ng-required="true" ng-minlength="10">

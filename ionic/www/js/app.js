@@ -13,8 +13,8 @@ angular.module('starter', [
     'angular-oauth2','ngResource','ngCordova','uiGmapgoogle-maps','pusher-angular'
 ])
     .constant('appConfig',{
-        baseUrl:'http://leiviton.com.br/direta_dev/public',
-        //baseUrl:'http://192.168.137.201:8000',
+        //baseUrl:'http://leiviton.com.br/direta_dev/public',
+        baseUrl:'http://192.168.137.201:8000',
         pusherKey: '9da90fc97b93c4ce952a'
     })
     .run(function($ionicPlatform,$window,appConfig,$localStorage) {

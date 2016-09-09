@@ -112,20 +112,24 @@
     {
         font-size: 1.0em;
     }
+    .equipe1{
+        font-size: 1.0em !important;
+        margin-top: -10px !important;
+    }
     .equipe{
         font-size: 1.0em !important;
+        margin-bottom: 50%;
     }
-    .label{
-        font-size: 0.8em !important;
-        color: #000000 !important;
-        margin-top: -20px !important;
-    }
+
     .visita{
         font-size: 0.8em !important;
     }
 }
 
-
+.formClose{
+    margin-top: -30px!important;
+    z-index: 9999999 !important;
+}
 .alerta{
     margin-right: 11px !important;
 }
@@ -136,4 +140,10 @@
 
 input{
     font-size: 1.2em !important;
+}
+
+.icone{
+    font-size: 3em !important;
+    color: #ff0000;
+    margin-top: -30px !important;
 }

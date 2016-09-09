@@ -4,7 +4,9 @@ namespace CodeDelivery\Http\Controllers\Api\Deliveryman;
 
 use CodeDelivery\Events\GetLocationDeliveryman;
 use CodeDelivery\Http\Controllers\Controller;
+use CodeDelivery\Models\AuxiliaryItems;
 use CodeDelivery\Models\Geo;
+use CodeDelivery\Models\OrderItem;
 use CodeDelivery\Repositories\AuxiliaryItemsRepository;
 use CodeDelivery\Repositories\AuxiliaryRepository;
 use CodeDelivery\Repositories\OrderRepository;
@@ -29,6 +31,8 @@ class DeliverymanCheckoutController extends Controller
      * @var AuxiliaryItemsRepository
      */
     private $auxiliaryRepository;
+
+    private $repository;
 
     /**
      * @var DeliverymanAuxiliaryController
@@ -75,16 +79,24 @@ class DeliverymanCheckoutController extends Controller
     public function updateStatus(Request $request,$id){
         $idDeliveryman = Authorizer::getResourceOwnerId();
 
-        $data = $request->get('auxiliary');
-        $auxiliares = $data['auxiliar'];
+        $order = $this->repository->find($id);
 
-        if ($data!=null){
-            foreach ($auxiliares as $auxiliar){
-                $auxiliar['order_id'] = $id;
-                $this->auxiliaryRepository->create($auxiliar);
-            }
-            $this->auxiliaryRepository->create($data);
+        if($request->get('items')!=null ){
+            $products = $request->get('items');
+            dd($products);
+            $items = $this->itemToArray($products);
+            $order->items()->attach($items);
         }
+
+        if ($request->get('auxiliary')!=null){
+            $auxiliarys = $request->get('auxiliary');
+            dd($auxiliarys);
+            $items = $this->auxToArray($auxiliarys);
+            $order->auxiliarys()->attach($items);
+        }
+
+
+
         return $this->orderService->updateStatus($id,$idDeliveryman,
             $request->get('status'),
             $request->get('lat'),
@@ -103,5 +115,25 @@ class DeliverymanCheckoutController extends Controller
         $geo->long = $request->get('long');
         event(new GetLocationDeliveryman($geo,$order));
         return $geo;
+    }
+
+    private function itemToArray($products)
+    {
+        $itemCollection = [];
+        foreach ($products as $product) {
+            $item = OrderItem::firstOrCreate(['product_id' => $product->id]);
+            array_push($itemCollection, $item->id);
+        }
+        return $itemCollection;
+    }
+
+    private function auxToArray($auxiliary)
+    {
+        $itemCollection = [];
+        foreach ($auxiliary as $aux) {
+            $item = AuxiliaryItems::firstOrCreate(['auxiliary_id' => $aux->auxiliary_id]);
+            array_push($itemCollection, $item->id);
+        }
+        return $itemCollection;
     }
 }

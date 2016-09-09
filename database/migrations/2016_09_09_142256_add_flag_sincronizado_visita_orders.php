@@ -21,7 +21,6 @@ class AddFlagSincronizadoVisitaOrders extends Migration
             $table->string('plano')->nullable();
             $table->string('id_plano')->nullable();
             $table->smallInteger('flag_sincronizado')->nullable();
-
         });
     }
 

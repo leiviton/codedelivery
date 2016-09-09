@@ -26,7 +26,7 @@ class Order extends Model implements Transformable
         return $this->hasMany(OrderItem::class);
     }
 
-    public function auxiliaryItem(){
+    public function auxiliarys(){
         return $this->hasMany(AuxiliaryItems::class);
     }
 
@@ -45,9 +45,4 @@ class Order extends Model implements Transformable
     public function product(){
         return $this->hasMany(Product::class);
     }
-
-    public function auxiliary(){
-        return $this->hasMany(Auxuliary::class);
-    }
-
 }
