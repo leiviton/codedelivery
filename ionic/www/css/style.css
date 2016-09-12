@@ -36,7 +36,7 @@
 .platform-android .action-sheet-has-icons .button {
     padding-left: 56px; }
 
-@media (min-width: 400px) {
+@media (min-width: 361px) {
     .aux {
         margin-left: 290px !important;
         margin-top: -45px !important;
@@ -47,7 +47,7 @@
 
         cursor: pointer !important;
         text-align: center !important;
-        margin-top: 60% !important;
+        margin-top: 40% !important;
         padding: 2px 2px !important;
     }
     .data{
