@@ -29,7 +29,8 @@ class ClientCheckoutController extends Controller
      */
     private $orderService;
 
-    private $with = ['client','cupom','items'];
+    private $repository;
+
     public function  __construct(
         OrderRepository $repository,
         ProductRepository $productRepository,
@@ -63,14 +64,14 @@ class ClientCheckoutController extends Controller
         $o = $this->orderService->create($data);
         return $this->repository
                 ->skipPresenter(false)
-                ->with($this->with)
                 ->find($o->id);
     }
 
     public function show($id){
+        $idClient= Authorizer::getResourceOwnerId();
+
         return $this->repository
             ->skipPresenter(false)
-            ->with($this->with)
-            ->find($id);
+            ->getByIdAndClient($id,$idClient);
     }
 }

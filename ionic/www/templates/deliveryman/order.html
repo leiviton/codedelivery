@@ -3,7 +3,7 @@
     <ion-content class="padding has-header">
         <ion-refresher pulling-text="Arraste para atualizar..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
-            <ion-item ng-repeat="o in items | orderBy:['-priority','created_at','district']" ng-click="openOrderDetail(o)">
+            <ion-item ng-repeat="o in items | orderBy:['-priority','created_at','district']" on-double-tap="openOrderDetail(o)">
                 <div class="row">
                     <div class="col">
                         <h2>{{o.created_at.date|limitTo: 10 | date: '   dd/MM/yyyy'}}</h2>
@@ -18,6 +18,10 @@
                 <div class="row item-text-wrap">
                     <p>{{o.address}},{{o.address_number}} , {{o.district}} - {{o.city}} </p>
                 </div>
+                <ion-option-button class="button-assertive"
+                                   ng-click="giveBack(o)" ng-if="o.status==0">
+                    Devolver
+                </ion-option-button>
             </ion-item>
         </ion-list>
     </ion-content>

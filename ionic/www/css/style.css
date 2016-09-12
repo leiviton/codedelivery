@@ -126,10 +126,7 @@
     }
 }
 
-.formClose{
-    margin-top: -30px!important;
-    z-index: 9999999 !important;
-}
+
 .alerta{
     margin-right: 11px !important;
 }
@@ -147,3 +144,5 @@ input{
     color: #ff0000;
     margin-top: -30px !important;
 }
+
+

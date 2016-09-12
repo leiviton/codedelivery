@@ -15,7 +15,9 @@
                         <i class="assertive ion ion-alert-circled text-right" ng-if="order.priority==3"></i>
                     </div>
                 </h2>
+
                 <div class="conteudo">
+                    <h2 class="t">Plano: {{order.plano}}</h2>
                     <h2 class="t"> {{order.address}},{{order.address_number}} - {{order.city}}</h2>
                     <h2 ng-if="order.phone1 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone1}}"> {{order.phone1}} </a> </h2>
                     <h2 ng-if="order.phone2 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone2}}"> {{order.phone2}} </a> </h2>

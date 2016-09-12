@@ -108,6 +108,26 @@ class DeliverymanCheckoutController extends Controller
 
     }
 
+    public function count(Request $request){
+        $idDeliveryman= Authorizer::getResourceOwnerId();
+        return $this->repository->skipPresenter(false)->count($idDeliveryman,$request->get('status'));
+    }
+
+    public function countT(){
+        $idDeliveryman= Authorizer::getResourceOwnerId();
+        return $this->repository->skipPresenter(false)->countT($idDeliveryman);
+    }
+
+    public function countAntT(){
+        $idDeliveryman= Authorizer::getResourceOwnerId();
+        return $this->repository->skipPresenter(false)->countAntT($idDeliveryman);
+    }
+
+    public function countAnt(Request $request){
+        $idDeliveryman= Authorizer::getResourceOwnerId();
+        return $this->repository->skipPresenter(false)->countAnt($idDeliveryman,$request->get('status'));
+    }
+
     public function geo(Request $request, Geo $geo, $id){
         $idDeliveryman= Authorizer::getResourceOwnerId();
         $order = $this->repository->getByIDAndDeliveryman($id, $idDeliveryman);
@@ -136,4 +156,5 @@ class DeliverymanCheckoutController extends Controller
         }
         return $itemCollection;
     }
+
 }

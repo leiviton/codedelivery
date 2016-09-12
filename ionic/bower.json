@@ -16,7 +16,9 @@
     "marker-animate-unobtrusive": "~0.2.7",
     "ngCordova": "~0.1.23-alpha",
     "pusher": "~3.0.0",
-    "pusher-angular": "~0.1.8"
+    "pusher-angular": "~0.1.8",
+    "chartjs": "^2.2.2",
+    "angular-chart": "^0.5.0"
   },
   "resolutions": {
     "angular": "1.5.8"

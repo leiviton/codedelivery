@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
     .controller('DeliverymanViewOrderCtrl',[
-        '$scope','$state','$stateParams','DeliverymanOrder','$ionicLoading','$cordovaGeolocation','$ionicPopup','$cart',
+                  '$scope','$state','$stateParams','DeliverymanOrder','$ionicLoading','$cordovaGeolocation','$ionicPopup','$cart',
         function ($scope,$state, $stateParams, DeliverymanOrder,$ionicLoading,$cordovaGeolocation,$ionicPopup,$cart) {
         var watch;
         $scope.order = [];
@@ -33,7 +33,7 @@ angular.module('starter.controllers')
                             console.log(lat,long);
 
                             DeliverymanOrder.updateStatus({id: $stateParams.id}, {
-                                deliveryman_id: null,
+                                devolver: null,
                                 status: 0,
                                 lat: lat,
                                 long: long
@@ -72,7 +72,7 @@ angular.module('starter.controllers')
                                 console.log(lat,long);
 
                                 DeliverymanOrder.updateStatus({id: $stateParams.id}, {
-                                    deliveryman_id: null,
+                                    devolver: null,
                                     status: 1,
                                     lat: lat,
                                     long: long

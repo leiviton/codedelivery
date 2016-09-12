@@ -54,12 +54,12 @@ angular.module('starter.controllers')
                             });
                             console.log(ax);
                             DeliverymanOrder.updateStatus({id: $stateParams.id}, {
-                                deliveryman_id: null,
+                                devolver: null,
                                 status: 2,
                                 lat: lat,
                                 long: long,
                                 service: o.service,
-                                auxiliary: ax
+                                auxiliary: null
                             },function (data) {
                                 $scope.order = data;
                                 console.log(data);

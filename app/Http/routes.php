@@ -93,6 +93,14 @@ Route::group(['middleware'=>'cors'],function (){
                 'as'=>'order.iniciada', 'uses'=>'Api\Deliveryman\DeliverymanCheckoutController@getIniciada']);
 
             Route::get('auxiliary','Api\Deliveryman\DeliverymanAuxiliaryController@index');
+
+            Route::get('count','Api\Deliveryman\DeliverymanCheckoutController@count');
+
+            Route::get('countAnt','Api\Deliveryman\DeliverymanCheckoutController@countAnt');
+
+            Route::get('countT','Api\Deliveryman\DeliverymanCheckoutController@countT');
+
+            Route::get('countAntT','Api\Deliveryman\DeliverymanCheckoutController@countAntT');
         });
 
         Route::get('authenticated','Api\UserController@authenticated');

@@ -15,6 +15,7 @@
                        <i class="assertive ion ion-alert-circled text-right" ng-if="order.priority==3"></i>
                    </div>
                </h2>
+               <h2>Plano: {{order.planos}}</h2>
                <div class="conteudo">
                    <h2 class="t"> {{order.address}},{{order.address_number}} - {{order.city}}</h2>
                    <h2 class="t" ng-if="order.phone1 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone1}}"> {{order.phone1}} </a> </h2>
@@ -23,16 +24,16 @@
                </div>
            </ion-item>
            <ion-item>
-               <label class="label" ng-if="auxiliary !=null && auxiliary !=''">Sua equipe:
-                   <h2 class="equipe">{{user.name}}</h2>
+                  <h2 class="equipe1" ng-if="auxiliary !=null && auxiliary !=''">Sua equipe:<br>
+                  <h2 class="equipe">{{user.name}}</h2>
+                  </h2>
                    <h2 class="equipe" ng-repeat="a in auxiliary">
                        {{a.name}}
                    </h2>
-               </label>
-                   <button class="button button-energized aux" ng-click="openListAuxiliares()" ng-if="auxiliary !=null && auxiliary !=''"" id="aux" ><i class="ion-android-add"></i></button>
+                   <button class="button button-clear aux" ng-click="openListAuxiliares()" ng-if="auxiliary !=null && auxiliary !=''"" id="aux" ><i class="ion-android-add icone"></i></button>
 
                <h2 class="equipe1"  ng-if="auxiliary==null">Sua equipe:
-                   <h2 class="equipe">{{user.name}}</h2>
+                   <h2 class="equipe" ng-if="auxiliary==null">{{user.name}}</h2>
                </h2>
                    <button class="button button-clear aux" ng-click="openListAuxiliares()"  ng-if="auxiliary == null"><i class="ion-android-add icone"></i></button>
            </ion-item>

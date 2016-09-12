@@ -91,17 +91,14 @@ class OrderService{
             case 0:
                 if($devolver==1){
                     $order->user_deliveryman_id = (int) $devolver;
-                    $order->flag_sincronizado = 0;
                     $order->save();
                     break;
                 }elseif ($order->visita==null){
                     $order->visita = date("d/m/Y h:i:s");
-                    $order->flag_sincronizado = 0;
                     $order->geo_client_no_location = $lat.','.$long;
                 }else{
                     $order->visita .= ','.date("d/m/Y h:i:s");
                     $order->geo_client_no_location = $lat.','.$long;
-                    $order->flag_sincronizado = 0;
                 }
                 $order->save();
                 break;
@@ -110,17 +107,15 @@ class OrderService{
                     $order->hash = md5((new \DateTime())->getTimestamp());
                 }
                 $order->geo = $lat.','.$long;
-                $order->flag_sincronizado = 0;
                 $order->save();
                 break;
             case 2:
                 $order->geo_final = $lat.','.$long;
                 $order->service = $service;
-                $order->flag_sincronizado = 0;
                 $order->save();
                 break;
         }
-
+        $order->flag_sincronizado = 0;
         return $order;
 
     }

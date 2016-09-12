@@ -135,9 +135,7 @@ angular.module('starter', [
             .state('deliveryman.home',{
                 url:'/home',
                 templateUrl:'templates/deliveryman/home.html',
-                controller:function ($scope) {
-
-                }
+                controller:function ($scope) {}
             })
             .state('deliveryman.notification',{
                 url:'/notification',
@@ -151,29 +149,32 @@ angular.module('starter', [
                 controller: 'DeliverymanOrderCtrl'
             })
             .state('deliveryman.view_order',{
-                cache:false,
                 url:'/view_order/:id',
                 templateUrl: 'templates/deliveryman/view_order.html',
                 controller: 'DeliverymanViewOrderCtrl'
             })
             .state('deliveryman.view_close',{
-                cache:false,
                 url:'/view_close/:id',
                 templateUrl: 'templates/deliveryman/view_order_close.html',
                 controller: 'DeliverymanViewCloseCtrl'
             })
             .state('deliveryman.view_auxiliary',{
-                cache:false,
                 url:'/view_auxiliary',
                 templateUrl: 'templates/client/view_auxiliary.html',
                 controller: 'DeliverymanViewAuxiliaryCtrl'
             })
             .state('deliveryman.checkout',{
-                cache: false,
+                cache:false,
                 url:'/checkout',
                 templateUrl: 'templates/deliveryman/checkout.html',
                 controller: 'DeliverymanCheckoutCtrl'
+            })
+            .state('deliveryman.summary',{
+                url:'/summary',
+                templateUrl:'templates/deliveryman/summary.html',
+                controller: 'DeliverymanSummaryCtrl'
             });
+
         $urlRouterProvider.otherwise("/login");
         $provide.decorator('OAuthToken',['$localStorage','$delegate',function ($localStorage,$delegate) {
             Object.defineProperties($delegate,{

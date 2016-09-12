@@ -12,7 +12,7 @@ use CodeDelivery\Models\Order;
  */
 class OrderTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['cupom','items'];
+    protected $availableIncludes = ['items'];
 
 
     /**
@@ -25,7 +25,6 @@ class OrderTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
-            'total'      => (float) $model->total,
             'defect'=>$model->defect,
             'status'=>$model->status,
             'priority'=>$model->priority,
@@ -40,6 +39,9 @@ class OrderTransformer extends TransformerAbstract
             'city'=>$model->city,
             'state'=>$model->state,
             'visita'=>$model->visita,
+            'plano'=>$model->plano,
+            'id_plano'=>$model->id_plano,
+            'product'=>$model->product,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];

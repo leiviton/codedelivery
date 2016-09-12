@@ -20,6 +20,22 @@ angular.module('starter.services')
             geo:{
                 method: 'POST',
                 url: url + '/geo'
+            },
+            count:{
+                method: 'GET',
+                url: appConfig.baseUrl +'/api/deliveryman/count'
+            },
+            countAnt:{
+                method: 'GET',
+                url: appConfig.baseUrl +'/api/deliveryman/countAnt'
+            }
+            ,countT:{
+                method: 'GET',
+                url: appConfig.baseUrl +'/api/deliveryman/countT'
+            },
+            countAntT:{
+                method: 'GET',
+                url: appConfig.baseUrl +'/api/deliveryman/countAntT'
             }
         });
 
