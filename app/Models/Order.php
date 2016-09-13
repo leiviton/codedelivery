@@ -24,12 +24,19 @@ class Order extends Model implements Transformable
         return $this->hasMany(OrderItem::class);
     }
 
+    public function actions(){
+        return $this->hasMany(Action::class);
+    }
+
     public function auxiliarys(){
         return $this->hasMany(AuxiliaryItems::class);
     }
 
     public function deliveryman(){
         return $this->belongsTo(User::class,'user_deliveryman_id','id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function client(){

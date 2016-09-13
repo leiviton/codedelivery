@@ -15,7 +15,7 @@ angular.module('starter.controllers')
           getOrders().then(function (data) {
 
               $scope.items = data.data;
-
+              console.log(data.data);
               $scope.$broadcast('scroll.refreshComplete');
           },function (dataError) {
               $scope.$broadcast('scroll.refreshComplete');

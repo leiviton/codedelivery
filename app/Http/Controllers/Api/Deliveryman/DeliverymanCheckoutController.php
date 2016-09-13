@@ -12,6 +12,7 @@ use CodeDelivery\Repositories\AuxiliaryRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
+use DB;
 use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
@@ -78,31 +79,18 @@ class DeliverymanCheckoutController extends Controller
 
     public function updateStatus(Request $request,$id){
         $idDeliveryman = Authorizer::getResourceOwnerId();
-
-        $order = $this->repository->find($id);
-
-        if($request->get('items')!=null ){
-            $products = $request->get('items');
-            dd($products);
-            $items = $this->itemToArray($products);
-            $order->items()->attach($items);
-        }
-
+        $auxiliarys = null;
         if ($request->get('auxiliary')!=null){
             $auxiliarys = $request->get('auxiliary');
-            dd($auxiliarys);
-            $items = $this->auxToArray($auxiliarys);
-            $order->auxiliarys()->attach($items);
         }
-
-
 
         return $this->orderService->updateStatus($id,$idDeliveryman,
             $request->get('status'),
             $request->get('lat'),
             $request->get('long'),
             $request->get('service'),
-            $request->get('devolver')
+            $request->get('devolver'),
+            $auxiliarys
         );
 
 
@@ -146,15 +134,4 @@ class DeliverymanCheckoutController extends Controller
         }
         return $itemCollection;
     }
-
-    private function auxToArray($auxiliary)
-    {
-        $itemCollection = [];
-        foreach ($auxiliary as $aux) {
-            $item = AuxiliaryItems::firstOrCreate(['auxiliary_id' => $aux->auxiliary_id]);
-            array_push($itemCollection, $item->id);
-        }
-        return $itemCollection;
-    }
-
 }

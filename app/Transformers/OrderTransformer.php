@@ -13,7 +13,7 @@ use CodeDelivery\Models\Order;
 class OrderTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['items'];
-
+    protected $defaultIncludes = ['auxiliary'];
 
     /**
      * Transform the \Order entity
@@ -64,6 +64,10 @@ class OrderTransformer extends TransformerAbstract
     }
     public function includeItems(Order $model){
         return $this->collection($model->items,new OrderItemTransformer());
+    }
+
+    public function includeAuxiliary(Order $model){
+        return $this->collection($model->auxiliarys,new AuxiliaryItemTransformer());
     }
 
 }

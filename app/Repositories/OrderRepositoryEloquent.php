@@ -5,6 +5,7 @@ namespace CodeDelivery\Repositories;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeDelivery\Models\Order;
@@ -39,40 +40,21 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         throw (new ModelNotFoundException())->setModel($this->model());
     }
 
-    public function count($id,$status){
-        if($status==0){
+    public function countM($id,$status){
+
             return $this->model->where('created_at', '>=', Carbon::now()->startOfMonth())
                 ->where('user_deliveryman_id',$id)
-                ->where('status','!=',2)->get()->count();
-        }elseif($status==2){
-            return $this->model->where('created_at', '>=', Carbon::now()->startOfMonth())
+                ->where('status',$status)->get()->count();
+    }
+
+    public function countD($id,$status){
+
+            return $this->model->where('created_at', '>=', Carbon::now()->startOfDay())
                 ->where('user_deliveryman_id',$id)->where('status',$status)->get()->count();
-        }
-    }
-
-    public function countT($id){
-
-            return $this->model->where('created_at', '>=', Carbon::now()->startOfMonth())
-                ->where('user_deliveryman_id',$id)->get()->count();
 
     }
 
-    public function countAnt($id,$status){
-        if ($status==0){
-            return $this->model->where('created_at', '>=', Carbon::now()->subMonth())
-                ->where('user_deliveryman_id',$id)->where('status','!=',2)->get()->count();
-        }elseif($status==2){
-            return $this->model->where('created_at', '>=', Carbon::now()->subMonth())
-                ->where('user_deliveryman_id',$id)->where('status',$status)->get()->count();
-        }
-    }
 
-    public function countAntT($id){
-
-            return $this->model->where('created_at', '>=', Carbon::now()->subMonth())
-                ->where('user_deliveryman_id',$id)->get()->count();
-
-    }
     /**
      * Specify Model class name
      *

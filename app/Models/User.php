@@ -23,6 +23,10 @@ class User extends Model implements Transformable,AuthenticatableContract,
         return $this->hasOne(Client::class);
     }
 
+    public function actions(){
+        return $this->hasMany(Action::class);
+    }
+
     /**
      * The database table used by the model.
      *

@@ -4,12 +4,11 @@
 namespace CodeDelivery\Services;
 
 
-use CodeDelivery\Models\Order;
-use CodeDelivery\Repositories\AuxiliaryItemsRepository;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
-use Illuminate\Support\Facades\DB;
+use CodeDelivery\Repositories\UserRepository;
+use Dmitrovskiy\IonicPush\PushProcessor;
 
 class OrderService{
     /**
@@ -24,21 +23,30 @@ class OrderService{
      * @var ProductRepository
      */
     private $productRepository;
-
+    /**
+     * @var PushProcessor
+     */
+    private $pushProcessor;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
 
     public function __construct(
         OrderRepository $orderRepository,
+        UserRepository $userRepository,
         CupomRepository $cupomRepository,
-        ProductRepository $productRepository
-
+        ProductRepository $productRepository,
+        PushProcessor $pushProcessor
     )
     {
 
         $this->orderRepository = $orderRepository;
         $this->cupomRepository = $cupomRepository;
         $this->productRepository = $productRepository;
-
+        $this->pushProcessor = $pushProcessor;
+        $this->userRepository = $userRepository;
     }
 
     public function create(array $data){
@@ -84,20 +92,34 @@ class OrderService{
         }
     }
 
-    public function updateStatus($id,$idDeliveryman,$status,$lat,$long,$service=null,$devolver=null){
+    public function updateStatus($id,$idDeliveryman,$status,$lat,$long,$service=null,$devolver=null,$ax=null){
         $order = $this->orderRepository->getByIDAndDeliveryman($id,$idDeliveryman);
         $order->status = $status;
+        $order->flag_sincronizado = 0;
         switch ((int)$status) {
             case 0:
                 if($devolver==1){
+                    $this->pushProcessor->notify([$order->deliveryman->device_token],[
+                        'message'=>"Você devolveu a orderm {$order->number_os_sise} para o PCP"
+                    ]);
                     $order->user_deliveryman_id = (int) $devolver;
                     $order->save();
                     break;
                 }elseif ($order->visita==null){
-                    $order->visita = date("d/m/Y h:i:s");
+                    $hora = date("H:i:s");
+                    $data = date("d/m/Y");
+                    $this->pushProcessor->notify([$order->deliveryman->device_token],[
+                        'message'=>"Você visitou o cliente {$order->name} ás {$hora} do dia {$data}"
+                    ]);
+                    $order->visita = date("d/m/Y H:i:s");
                     $order->geo_client_no_location = $lat.','.$long;
                 }else{
-                    $order->visita .= ','.date("d/m/Y h:i:s");
+                    $hora = date("H:i:s");
+                    $data = date("d/m/Y");
+                    $this->pushProcessor->notify([$order->deliveryman->device_token],[
+                        'message'=>"Você visitou o cliente {$order->name} ás {$hora} do dia {$data}"
+                    ]);
+                    $order->visita .= ','.date("d/m/Y H:i:s");
                     $order->geo_client_no_location = $lat.','.$long;
                 }
                 $order->save();
@@ -112,10 +134,15 @@ class OrderService{
             case 2:
                 $order->geo_final = $lat.','.$long;
                 $order->service = $service;
+                $auxiliares = $ax;
+                if ($auxiliares!=null) {
+                    foreach ($auxiliares as $axs) {
+                        $order->auxiliarys()->create($axs);
+                    }
+                }
                 $order->save();
                 break;
         }
-        $order->flag_sincronizado = 0;
         return $order;
 
     }

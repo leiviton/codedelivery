@@ -17,23 +17,28 @@
                 </h2>
 
                 <div class="conteudo">
-                    <h2 class="t">Plano: {{order.plano}}</h2>
                     <h2 class="t"> {{order.address}},{{order.address_number}} - {{order.city}}</h2>
-                    <h2 ng-if="order.phone1 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone1}}"> {{order.phone1}} </a> </h2>
-                    <h2 ng-if="order.phone2 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone2}}"> {{order.phone2}} </a> </h2>
-                    <h2 class="t"><i class="ion ion-wrench"></i> Solicitação: {{order.defect}}</h2>
+                    <div class="row">
+                         <h2 class="col t text-left plan">Plano: {{order.plano}}</h2>
+                         <h2 class="col t text-right idplan">ID Plano: {{order.id_plano}}</h2>
+                    </div>
+                    <div class="row">
+                         <h2 class="col text-left tel" ng-if="order.phone1 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone1}}"> {{order.phone1}} </a> </h2>
+                         <h2 class="col text-right tel2" ng-if="order.phone2 != null"><i class="ion ion-ios-telephone"></i> <a class="nounderline" ng-href="tel: {{order.phone2}}"> {{order.phone2}} </a> </h2>
+                    </div>
+                        <h2 class="t sol"><i class="ion ion-wrench"></i> Solicitação: {{order.defect}}</h2>
                 </div>
             </ion-item>
         </ion-list>
         <button type="button" class="button button-positive button-full" ng-click="goToDelivery()">
             Iniciar Ordem
         </button>
-        <button type="button" class="button button-dark button-full" ng-click="giveBack()">
+        <button type="button" class="button button-assertive button-full" ng-click="giveBack()">
             Devolver Ordem
         </button>
-    <button type="button" class="button button-assertive button-full button-circle" ng-click="goToOrder()">
-        Cliente não encontrado
-    </button>
+        <button type="button" class="button button-dark button-full button-circle" ng-click="goToOrder()">
+            Cliente não encontrado
+        </button>
     <div ng-if="order.visita!=null">
         <h2 class="visita">Cliente não encontrado ás:</h2>
         <h2 class="visita">{{order.visita}}</h2>

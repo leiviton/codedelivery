@@ -6,16 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class AuxiliaryItems extends Model implements Transformable
+class Action extends Model implements Transformable
 {
     use TransformableTrait;
 
     protected $fillable = [
-        'auxiliary_id',
+        'deliveryman_id',
         'order_id',
+        'action',
+        'geo_location',
     ];
-    public function auxiliary(){
-        return $this->belongsTo(Auxiliary::class);
+    public function deliveryman(){
+        return $this->belongsTo(User::class);
     }
     public function order(){
         return $this->belongsTo(Order::class);

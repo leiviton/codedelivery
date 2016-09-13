@@ -5,14 +5,12 @@ angular.module('starter.controllers')
         var watch;
         $scope.user = UserData.get();
         $scope.order = [];
-        var aux = $cart.getAux();
+        var aux = $cart.getAux(), auxiliares = [];
         if(aux.auxiliar.length == 0 || aux.auxiliar==null){
             aux.auxiliar = null;
             $scope.auxiliary = aux.auxiliar;
-            console.log($scope.auxiliary);
         }else {
             $scope.auxiliary = aux.auxiliar;
-            console.log($scope.auxiliary);
         }
 
             $scope.openListAuxiliares = function () {
@@ -52,14 +50,13 @@ angular.module('starter.controllers')
                             angular.forEach(ax.auxiliary,function (item) {
                                 item.auxiliary_id = item.id;
                             });
-                            console.log(ax);
                             DeliverymanOrder.updateStatus({id: $stateParams.id}, {
                                 devolver: null,
                                 status: 2,
                                 lat: lat,
                                 long: long,
                                 service: o.service,
-                                auxiliary: null
+                                auxiliary:ax.auxiliary
                             },function (data) {
                                 $scope.order = data;
                                 console.log(data);

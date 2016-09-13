@@ -3,7 +3,7 @@
 namespace CodeDelivery\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use CodeDelivery\Models\AuxuliaryItems;
+use CodeDelivery\Models\AuxiliaryItems;
 
 /**
  * Class AuxiliaryItemTransformer
@@ -18,7 +18,7 @@ class AuxiliaryItemTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(AuxuliaryItems $model)
+    public function transform(AuxiliaryItems $model)
     {
         return [
             'id'         => (int) $model->id,
@@ -30,8 +30,5 @@ class AuxiliaryItemTransformer extends TransformerAbstract
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
-    }
-    public function includeAuxiliary(AuxuliaryItems $model){
-        return $this->item($model->auxiliary, new AuxiliaryItemTransformer());
     }
 }
